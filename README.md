@@ -14,7 +14,8 @@ npx mcp-shell connect --stdio "npx @modelcontextprotocol/server-filesystem /tmp"
 - **Resource access** — list and read resources
 - **Interactive REPL** — explore servers in real time
 - **Config files** — save server definitions as JSON
-- **No API keys required** for many servers (filesystem, SQLite, memory, etc.)
+- **No API keys required** for many servers (filesystem, SQLite, memory, Open Library books, etc.)
+- **Build your own** MCP server and use it immediately — example in `examples/books-mcp/`
 
 ## Quick Start
 
@@ -114,6 +115,80 @@ GITHUB_TOKEN=$(gh auth token) npx mcp-shell connect \
 ```
 
 > Never hardcode tokens. Use environment variables or `gh auth token`.
+
+## Example: Open Library Books
+
+Search books, get author bios, browse by subject, and see what's trending — no login or API key needed, powered by the [Open Library API](https://openlibrary.org/developers/api):
+
+```bash
+# Trending books
+npx mcp-shell connect \
+  --stdio "node examples/books-mcp/dist/index.js" \
+  --call-tool get_trending \
+  --tool-args '{"timeframe":"weekly","limit":5}'
+
+# Search for books
+npx mcp-shell connect \
+  --stdio "node examples/books-mcp/dist/index.js" \
+  --call-tool search_books \
+  --tool-args '{"query":"neuroscience","limit":5}'
+
+# Get book details by Open Library work ID
+npx mcp-shell connect \
+  --stdio "node examples/books-mcp/dist/index.js" \
+  --call-tool get_book \
+  --tool-args '{"id":"OL27448W"}'
+
+# Browse by subject
+npx mcp-shell connect \
+  --stdio "node examples/books-mcp/dist/index.js" \
+  --call-tool search_subjects \
+  --tool-args '{"subject":"space","limit":5}'
+
+# Get author info
+npx mcp-shell connect \
+  --stdio "node examples/books-mcp/dist/index.js" \
+  --call-tool get_author \
+  --tool-args '{"id":"OL34221A"}'
+```
+
+## Build Your Own MCP Server
+
+An MCP server is just a program that speaks JSON-RPC over stdin/stdout (or HTTP). The repo includes a working example at [`examples/books-mcp/`](examples/books-mcp/) — a complete MCP server that wraps the free Open Library API.
+
+```bash
+cd examples/books-mcp
+npm install && npm run build
+
+# Run it standalone (prints "books-mcp running on stdio")
+node dist/index.js
+
+# Or connect through mcp-shell
+npx mcp-shell connect --stdio "node examples/books-mcp/dist/index.js" --list-tools
+```
+
+To create your own, use the [`@modelcontextprotocol/sdk`](https://www.npmjs.com/package/@modelcontextprotocol/sdk):
+
+```ts
+import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { z } from 'zod';
+
+const server = new McpServer(
+  { name: 'my-server', version: '1.0.0' },
+  { capabilities: { tools: {} } },
+);
+
+server.registerTool('hello', {
+  description: 'A friendly greeting',
+  inputSchema: { name: z.string().describe('Your name') },
+}, async ({ name }) => ({
+  content: [{ type: 'text', text: `Hello, ${name}!` }],
+}));
+
+const transport = new StdioServerTransport();
+await server.connect(transport);
+```
 
 ## Available Commands
 
