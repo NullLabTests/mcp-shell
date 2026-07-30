@@ -1,5 +1,10 @@
 # mcp-shell
 
+[![MCP](https://img.shields.io/badge/Model%20Context%20Protocol-000?logo=data:image/svg%2Bxml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgdmlld0JveD0iMCAwIDI0IDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMSAxNy45M2MtMy45NS0uNDktNy0zLjg1LTctNy45MyAwLS4wOC4wMS0uMTUuMDEtLjIzTDEwIDE0djJjMCAxLjEuOSAyIDIgMmgyLjVjLjgzIDAgMS41LjY3IDEuNSAxLjV2Mi41bC0uMDYuMDFjLTEuMjguNDgtMi42NS43NC00LjA0Ljc0ek0xNy45IDE3LjM5Yy0uMjUuNDUtLjc0LjYxLTEuMTUuMzktLjE2LS4wOS0uMzQtLjE3LS41Mi0uMjctMS4wNi0uNTQtMi4yMy0uODgtMy40Mi0uOTl2LTEuNWMwLS44My0uNjctMS41LTEuNS0xLjVIN3YtM2MwLS4yOC4wOS0uNTMuMjUtLjc0bC4wMS0uMDFjLjQyLS41MS45Ni0uODkgMS41Ny0xLjA4bDMuNzYtMS4zMmMuNjUtLjIzIDEuMzYtLjM2IDIuMDgtLjM2aC44OGwuNDYuNDYgMy4wNSAzLjA1Yy4yNS4yNS40LjU5LjQuOTd2NS4zM2MwIC4yOC0uMTEuNTMtLjI5LjcxeiIvPjwvc3ZnPg==&style=flat-square)](https://modelcontextprotocol.io)
+[![NPM](https://img.shields.io/badge/npm-mcp--shell-blue?style=flat-square)](https://www.npmjs.com/package/mcp-shell)
+[![License](https://img.shields.io/github/license/NullLabTests/mcp-shell?style=flat-square)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/NullLabTests/mcp-shell?style=flat-square)](https://github.com/NullLabTests/mcp-shell)
+
 A universal **MCP (Model Context Protocol) client** for the terminal. Connect to any MCP server via **stdio**, **SSE**, **Streamable HTTP**, or **WebSocket** — list tools, call them, browse resources, or drop into interactive mode.
 
 ```bash
