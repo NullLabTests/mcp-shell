@@ -120,20 +120,22 @@ GITHUB_TOKEN=$(gh auth token) npx mcp-shell connect \
 
 Search books, get author bios, browse by subject, and see what's trending — no login or API key needed, powered by the [Open Library API](https://openlibrary.org/developers/api):
 
+> First build the server: `cd examples/books-mcp && npm install && npm run build`
+
 ```bash
-# Trending books
+# Trending books this week
 npx mcp-shell connect \
   --stdio "node examples/books-mcp/dist/index.js" \
   --call-tool get_trending \
   --tool-args '{"timeframe":"weekly","limit":5}'
 
-# Search for books
+# Search for books on any topic
 npx mcp-shell connect \
   --stdio "node examples/books-mcp/dist/index.js" \
   --call-tool search_books \
   --tool-args '{"query":"neuroscience","limit":5}'
 
-# Get book details by Open Library work ID
+# Dive into a specific book by its Open Library work ID
 npx mcp-shell connect \
   --stdio "node examples/books-mcp/dist/index.js" \
   --call-tool get_book \
@@ -145,7 +147,7 @@ npx mcp-shell connect \
   --call-tool search_subjects \
   --tool-args '{"subject":"space","limit":5}'
 
-# Get author info
+# Get author biography and notable works
 npx mcp-shell connect \
   --stdio "node examples/books-mcp/dist/index.js" \
   --call-tool get_author \
